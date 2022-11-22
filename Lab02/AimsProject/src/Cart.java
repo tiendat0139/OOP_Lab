@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -94,5 +93,35 @@ public class Cart {
         });
     }
 
+    public boolean addDigitalVideoDisc(DigitalVideoDisc [] dvdList){
+        for (int i = 0; i < dvdList.length; i++){
+            if (qtyOrdered <= MAX_NUMBERS_ORDERED){
+                itemsOrdered.add(dvdList[i]);
+                qtyOrdered++;
+            } else {
+                System.out.println("The cart is almost full");
+                return false;
+            }
+        }
+        System.out.println("Add DVD into cart successfully!");
+        return true;
+    }
 
+    public boolean addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2){
+        if(qtyOrdered <= MAX_NUMBERS_ORDERED){
+            itemsOrdered.add(dvd1);
+            qtyOrdered++;
+            if(qtyOrdered <= MAX_NUMBERS_ORDERED){
+                itemsOrdered.add(dvd2);
+                qtyOrdered++;
+                System.out.println("Add DVD into cart successfully!");
+                return true;
+            } else {
+                System.out.println("The cart is almost full");
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

@@ -48,6 +48,27 @@ public class DigitalVideoDisc {
     public double getCost() {
         return cost;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
     public void printDetail(){
         System.out.println("------ DigitalVideoDisc Detail ------");
         System.out.println(title + " " + " " + category + " " + director + " " + length + " " + cost);
