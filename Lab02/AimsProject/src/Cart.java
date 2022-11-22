@@ -15,6 +15,13 @@ public class Cart {
         this.qtyOrdered = qtyOrder;
     }
 
+    /**
+     * If the number of items in the cart is less than the maximum number of items allowed in the cart, add the item to the
+     * cart and return true. Otherwise, return false
+     *
+     * @param disc the DVD to be added to the cart
+     * @return The method returns a boolean value.
+     */
     public boolean addDigitalVideoDisc(DigitalVideoDisc disc) {
         if (qtyOrdered <= MAX_NUMBERS_ORDERED){
             itemsOrdered.add(disc);
@@ -27,6 +34,13 @@ public class Cart {
         }
     }
 
+
+    /**
+     * Remove a DigitalVideoDisc from the cart.
+     *
+     * @param disc The DigitalVideoDisc object to be removed from the cart.
+     * @return boolean
+     */
     public boolean removeDigitalVideoDisc(DigitalVideoDisc disc) {
         boolean isFound = itemsOrdered.contains(disc);
         if(isFound){
@@ -40,14 +54,23 @@ public class Cart {
         }
     }
 
+    /**
+     * This function displays the cart detail.
+     */
     public void displayCart() {
         System.out.println("------ Cart Detail ------");
         for (DigitalVideoDisc disc : itemsOrdered){
-            System.out.printf("%-20s %-20s %-20s %-10d %-10.2f \n", disc.getTitle(), disc.getCategory(),
-                    disc.getDirector(), disc.getLength(), disc.getCost());
+            System.out.printf("%-5d %-20s %-20s %-20s %-10d %-10.2f \n", disc.getId(),
+                    disc.getTitle(), disc.getCategory(), disc.getDirector(),
+                    disc.getLength(), disc.getCost());
         }
     }
 
+    /**
+     * TotalCost() returns the total cost of all the items in the order.
+     *
+     * @return The total cost of all the items in the order.
+     */
     public double totalCost() {
         double total = 0;
         for (DigitalVideoDisc disc : itemsOrdered){
@@ -56,6 +79,14 @@ public class Cart {
         return total;
     }
 
+    /**
+     * "Sort the items in the cart by title, and if the titles are the same, sort by cost."
+     *
+     * The first thing we do is call the `Collections.sort()` function, which takes two arguments: the list to sort, and a
+     * comparator. The comparator is an object that implements the `Comparator` interface. The `Comparator` interface has a
+     * single method, `compare()`, which takes two objects and returns an integer. The `compare()` method is called for
+     * each pair of objects in the list, and the return value determines how the objects are sorted
+     */
     public void sortCartByTitle() {
         Collections.sort(itemsOrdered, new Comparator<DigitalVideoDisc>() {
             @Override
@@ -75,6 +106,9 @@ public class Cart {
         });
     }
 
+    /**
+     * Sort the itemsOrdered list by cost, and if the cost is the same, sort by title.
+     */
     public void sortCartByCost() {
         Collections.sort(itemsOrdered, new Comparator<DigitalVideoDisc>() {
             @Override
@@ -93,6 +127,12 @@ public class Cart {
         });
     }
 
+    /**
+     * This function adds a list of DVDs to the cart
+     *
+     * @param dvdList an array of DigitalVideoDisc objects
+     * @return The method returns a boolean value.
+     */
     public boolean addDigitalVideoDisc(DigitalVideoDisc [] dvdList){
         for (int i = 0; i < dvdList.length; i++){
             if (qtyOrdered <= MAX_NUMBERS_ORDERED){
@@ -107,6 +147,16 @@ public class Cart {
         return true;
     }
 
+    /**
+     * If the quantity of items ordered is less than or equal to the maximum number of items ordered, add the first DVD to
+     * the items ordered and increment the quantity of items ordered. If the quantity of items ordered is less than or
+     * equal to the maximum number of items ordered, add the second DVD to the items ordered and increment the quantity of
+     * items ordered. Otherwise, print a message that the cart is almost full
+     *
+     * @param dvd1 The first DVD to be added to the cart.
+     * @param dvd2 The second DVD to be added to the cart.
+     * @return The method returns a boolean value.
+     */
     public boolean addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2){
         if(qtyOrdered <= MAX_NUMBERS_ORDERED){
             itemsOrdered.add(dvd1);
