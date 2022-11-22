@@ -8,7 +8,7 @@ public class Aims {
                 "Gerge Lucas", 87, 24.95f);
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.89f);
 
-//        Cart anOrder = new Cart();
+        Cart anOrder = new Cart();
         // Add DVD to cart
 //        anOrder.addDigitalVideoDisc(dvd1);
 //        anOrder.addDigitalVideoDisc(dvd2);
