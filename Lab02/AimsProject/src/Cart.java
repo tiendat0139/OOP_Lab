@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
@@ -171,6 +172,60 @@ public class Cart {
                 return false;
             }
         } else {
+            return false;
+        }
+    }
+
+    /**
+     * It prints out the ordered items in the cart
+     */
+    public void print(){
+        System.out.println("***********************CART***********************");
+        System.out.println("Ordered Items:");
+        Iterator<DigitalVideoDisc> it;
+        int i = 0;
+        for (it = itemsOrdered.iterator(); it.hasNext(); i++) {
+            DigitalVideoDisc disc = it.next();
+            System.out.printf("%d. %s \n", i + 1, disc.toString());
+        }
+    }
+
+    /**
+     * It searches for a DVD in the cart by its id.
+     *
+     * @param id the id of the DVD you want to search for
+     * @return The method returns a boolean value.
+     */
+    public boolean searchInCart(int id){
+        for (DigitalVideoDisc disc: itemsOrdered){
+            if(disc.getId() == id){
+                System.out.println(disc.toString());
+                return true;
+            }
+        }
+        System.out.println("Not found!");
+        return false;
+    }
+
+   /**
+     * Search for a DVD in the cart, and if found, print it out and return true, otherwise print "Not found" and return
+     * false.
+     *
+     * @param title the title of the DVD to be searched
+     * @return The method is returning a boolean value.
+     */
+     public boolean searchInCart(String title) {
+        boolean found = false;
+        for (DigitalVideoDisc disc: itemsOrdered){
+            if(disc.isMatch(title)){
+                System.out.println(disc.toString());
+                found = true;
+            }
+        }
+        if(found){
+            return true;
+        } else {
+            System.out.println("Not found!");
             return false;
         }
     }
