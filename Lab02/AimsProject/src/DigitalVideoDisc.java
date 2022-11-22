@@ -1,32 +1,31 @@
 public class DigitalVideoDisc {
+    private int id;
     private String title;
     private String category;
     private String director;
     private int length;
     private double cost;
+    private static int nbDigitalVideoDisc = 0;
 
     public DigitalVideoDisc(String title) {
+        this.id = nbDigitalVideoDisc + 1;
+        nbDigitalVideoDisc++;
         this.title = title;
     }
 
     public DigitalVideoDisc(String title, String category, double cost) {
-        this.title = title;
+        this(title);
         this.category = category;
         this.cost = cost;
     }
 
     public DigitalVideoDisc(String title, String category, String director, double cost) {
-        this.title = title;
-        this.category = category;
+        this(title, category, cost);
         this.director = director;
-        this.cost = cost;
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, double cost) {
-        this.title = title;
-        this.category = category;
-        this.director = director;
-        this.length = length;
+        this(title, category, director, cost);
         this.cost = cost;
     }
     public String getTitle() {
@@ -44,6 +43,8 @@ public class DigitalVideoDisc {
     public int getLength() {
         return length;
     }
+
+    public int getId() { return id; }
 
     public double getCost() {
         return cost;
@@ -69,6 +70,9 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
+    /**
+     * The function printDetail() prints out the title, category, director, length, and cost of a DigitalVideoDisc object
+     */
     public void printDetail(){
         System.out.println("------ DigitalVideoDisc Detail ------");
         System.out.println(title + " " + " " + category + " " + director + " " + length + " " + cost);
