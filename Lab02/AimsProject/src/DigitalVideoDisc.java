@@ -27,6 +27,7 @@ public class DigitalVideoDisc {
     public DigitalVideoDisc(String title, String category, String director, int length, double cost) {
         this(title, category, director, cost);
         this.cost = cost;
+        this.length = length;
     }
     public String getTitle() {
         return title;
@@ -76,5 +77,36 @@ public class DigitalVideoDisc {
     public void printDetail(){
         System.out.println("------ DigitalVideoDisc Detail ------");
         System.out.println(title + " " + " " + category + " " + director + " " + length + " " + cost);
+    }
+
+    /**
+     * The function takes the information stored in the object and returns it as a string
+     *
+     * @return A string representation of the DVD object.
+     */
+    public String toString(){
+        StringBuffer printDisc = new StringBuffer();
+        printDisc.append("DVD");
+        printDisc.append(" - ");
+        printDisc.append(title);
+        printDisc.append(" - ");
+        printDisc.append(category);
+        printDisc.append(" - ");
+        printDisc.append(director);
+        printDisc.append(" - ");
+        printDisc.append(length);
+        printDisc.append(": ");
+        printDisc.append(cost);
+        return  printDisc.toString();
+    }
+
+    /**
+     * This function returns true if the title of the book is equal to the title passed in as a parameter.
+     *
+     * @param title The title of the page.
+     * @return The boolean value of the comparison of the title of the book to the title of the book being searched for.
+     */
+    public boolean isMatch(String title){
+        return this.title.equals(title);
     }
 }
