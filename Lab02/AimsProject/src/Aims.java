@@ -39,21 +39,9 @@ public class Aims {
 //        anOrder.removeDigitalVideoDisc(dvd2);
 //        anOrder.displayCart();
 
-//        DigitalVideoDisc [] dvdList = {dvd2, dvd3};
-//        anOrder.addDigitalVideoDisc(dvd1);
-//        anOrder.addDigitalVideoDisc(dvdList);
-//        anOrder.displayCart();
-
-        Cart cart = new Cart();
-        cart.addDigitalVideoDisc(dvd1);
-        cart.addDigitalVideoDisc(dvd2);
-        cart.addDigitalVideoDisc(dvd3);
-
-        //Test the print method
-        cart.print();
-
-        //To-do: Test the search methods
-        cart.searchInCart(2);
-        cart.searchInCart("The Lion King");
+        DigitalVideoDisc [] dvdList = {dvd2, dvd3};
+        anOrder.addDigitalVideoDisc(dvd1);
+        anOrder.addDigitalVideoDisc(dvdList);
+        anOrder.displayCart();
     }
 }
