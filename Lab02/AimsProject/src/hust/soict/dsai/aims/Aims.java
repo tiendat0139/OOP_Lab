@@ -1,4 +1,7 @@
-import java.sql.Array;
+package hust.soict.dsai.aims;
+
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 
 public class Aims {
     public static void main(String[] args) {
@@ -39,7 +42,7 @@ public class Aims {
 //        anOrder.removeDigitalVideoDisc(dvd2);
 //        anOrder.displayCart();
 
-        DigitalVideoDisc [] dvdList = {dvd2, dvd3};
+        DigitalVideoDisc[] dvdList = {dvd2, dvd3};
         anOrder.addDigitalVideoDisc(dvd1);
         anOrder.addDigitalVideoDisc(dvdList);
         anOrder.displayCart();

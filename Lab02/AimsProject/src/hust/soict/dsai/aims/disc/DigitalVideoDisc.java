@@ -1,3 +1,5 @@
+package hust.soict.dsai.aims.disc;
+
 public class DigitalVideoDisc {
     private int id;
     private String title;
@@ -72,7 +74,7 @@ public class DigitalVideoDisc {
     }
 
     /**
-     * The function printDetail() prints out the title, category, director, length, and cost of a DigitalVideoDisc object
+     * The function printDetail() prints out the title, category, director, length, and cost of a hust.soict.dsai.aims.disc.DigitalVideoDisc object
      */
     public void printDetail(){
         System.out.println("------ DigitalVideoDisc Detail ------");

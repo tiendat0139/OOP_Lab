@@ -1,3 +1,6 @@
+package hust.soict.dsai.aims.store;
+
+import hust.soict.dsai.aims.disc.*;
 import java.util.ArrayList;
 
 public class Store {

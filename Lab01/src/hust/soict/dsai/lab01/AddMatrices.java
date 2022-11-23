@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01;
+
 public class AddMatrices {
     public static void printMatrix (int rows, int cols, int [][] matrix) {
         for (int i = 0; i < rows; i++) {

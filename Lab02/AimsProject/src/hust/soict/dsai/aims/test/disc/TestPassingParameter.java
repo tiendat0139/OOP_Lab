@@ -1,3 +1,7 @@
+package hust.soict.dsai.aims.test.disc;
+
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+
 public class TestPassingParameter {
     public static void main(String[] args) {
         DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
@@ -27,7 +31,7 @@ public class TestPassingParameter {
     /**
      * ChangeTitle() changes the title of the DVD passed to it, but it also creates a new DVD with the old title.
      *
-     * @param dvd a reference to a DigitalVideoDisc object
+     * @param dvd a reference to a hust.soict.dsai.aims.disc.DigitalVideoDisc object
      * @param title The title of the DVD.
      */
     public static void changeTitle(DigitalVideoDisc dvd, String title){
