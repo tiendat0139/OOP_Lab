@@ -1,3 +1,6 @@
+package hust.soict.dsai.aims.cart;
+
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,11 +38,10 @@ public class Cart {
         }
     }
 
-
     /**
-     * Remove a DigitalVideoDisc from the cart.
+     * Remove a disc from the cart.
      *
-     * @param disc The DigitalVideoDisc object to be removed from the cart.
+     * @param disc the hust.soict.dsai.aims.disc.DigitalVideoDisc object to be removed from the cart.
      * @return boolean
      */
     public boolean removeDigitalVideoDisc(DigitalVideoDisc disc) {
@@ -131,10 +133,10 @@ public class Cart {
     /**
      * This function adds a list of DVDs to the cart
      *
-     * @param dvdList an array of DigitalVideoDisc objects
+     * @param dvdList an array of hust.soict.dsai.aims.disc.DigitalVideoDisc objects
      * @return The method returns a boolean value.
      */
-    public boolean addDigitalVideoDisc(DigitalVideoDisc [] dvdList){
+    public boolean addDigitalVideoDisc(DigitalVideoDisc[] dvdList){
         for (int i = 0; i < dvdList.length; i++){
             if (qtyOrdered <= MAX_NUMBERS_ORDERED){
                 itemsOrdered.add(dvdList[i]);
@@ -158,7 +160,7 @@ public class Cart {
      * @param dvd2 The second DVD to be added to the cart.
      * @return The method returns a boolean value.
      */
-    public boolean addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2){
+    public boolean addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2){
         if(qtyOrdered <= MAX_NUMBERS_ORDERED){
             itemsOrdered.add(dvd1);
             qtyOrdered++;

@@ -1,3 +1,5 @@
+package hust.soict.dsai.lab01;
+
 import javax.swing.*;
 
 public class HelloNameDialog {
