@@ -1,52 +1,16 @@
 package hust.soict.dsai.aims.store;
 
-import hust.soict.dsai.aims.media.*;
-
+import hust.soict.dsai.aims.disc.*;
 import java.util.ArrayList;
 
 public class Store {
-    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
+    private ArrayList<DigitalVideoDisc> itemsInStore = new ArrayList<DigitalVideoDisc>();
 
-    /**
-     * This function adds a media item to the store
-     *
-     * @param m The media object to be added to the store.
-     * @return A boolean value.
-     */
-    public boolean addMedia(Media m){
-        return itemsInStore.add(m);
+    public boolean addDVD(DigitalVideoDisc disc){
+        return itemsInStore.add(disc);
     }
 
-    /**
-     * If the media is in the store, remove it and return true, otherwise return false
-     *
-     * @param m The media object to be removed from the store.
-     * @return A boolean value.
-     */
-    public boolean removeMedia(Media m) {
-        if (itemsInStore.contains(m)) {
-            itemsInStore.remove(m);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean removeDVD(DigitalVideoDisc disc) {
+        return itemsInStore.remove(disc);
     }
-
-    /**
-     * For each Media object in the itemsInStore array, call the toString() method on it.
-     */
-    public void displayStore() {
-        for (Media m : itemsInStore) {
-            System.out.println(m.toString());
-        }
-    }
-    public Media searchInStore(String title) {
-        for (Media m: itemsInStore){
-            if(m.isMatch(title)){
-                return m;
-            }
-        }
-        return null;
-    }
-
 }

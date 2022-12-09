@@ -1,63 +1,173 @@
 package hust.soict.dsai.aims.cart;
 
-import hust.soict.dsai.aims.media.*;
-
+import hust.soict.dsai.aims.disc.DigitalVideoDisc;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
-
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+    private int qtyOrdered;
+    private ArrayList<DigitalVideoDisc> itemsOrdered = new ArrayList<DigitalVideoDisc>();
 
-    /**
-     * If the number of items ordered is less than the maximum number of items ordered, add the media to the list of items
-     * ordered and return true. Otherwise, return false
-     *
-     * @param m The media item to be added to the order.
-     * @return A boolean value.
-     */
-    public boolean addMedia(Media m) {
-        if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-            return false;
-        } else {
-            itemsOrdered.add(m);
-            return true;
-        }
+    public int getQtyOrder() {
+        return qtyOrdered;
+    }
+
+    public void setQtyOrder(int qtyOrder) {
+        this.qtyOrdered = qtyOrder;
     }
 
     /**
-     * This function removes a media from the cart
+     * If the number of items in the cart is less than the maximum number of items allowed in the cart, add the item to the
+     * cart and return true. Otherwise, return false
      *
-     * @param m the media to be removed from the cart
-     * @return A boolean value
+     * @param disc the DVD to be added to the cart
+     * @return The method returns a boolean value.
      */
-    public boolean removeMedia(Media m) {
-        if (itemsOrdered.contains(m)) {
-            itemsOrdered.remove(m);
-            System.out.println("Add Media successfully");
+    public boolean addDigitalVideoDisc(DigitalVideoDisc disc) {
+        if (qtyOrdered <= MAX_NUMBERS_ORDERED){
+            itemsOrdered.add(disc);
+            qtyOrdered++;
+            System.out.println("Add DVD into cart successfully!");
             return true;
         } else {
-            System.out.println("This media has not been added to the cart");
+            System.out.println("The cart is almost full");
             return false;
         }
     }
 
     /**
-     * If the cart is not full, add the first media to the cart, and if the cart is still not full, add the second media to
-     * the cart
+     * Remove a disc from the cart.
      *
-     * @param m1 The first media item to be added to the cart
-     * @param m2 the second media item to be added to the cart
+     * @param disc the hust.soict.dsai.aims.disc.DigitalVideoDisc object to be removed from the cart.
      * @return boolean
      */
-    public boolean addMedia(Media m1, Media m2) {
-        if (itemsOrdered.size() <= MAX_NUMBERS_ORDERED) {
-            itemsOrdered.add(m1);
-            if (itemsOrdered.size() <= MAX_NUMBERS_ORDERED) {
-                itemsOrdered.add(m2);
-                System.out.println("Add Media into cart successfully!");
+    public boolean removeDigitalVideoDisc(DigitalVideoDisc disc) {
+        boolean isFound = itemsOrdered.contains(disc);
+        if(isFound){
+            itemsOrdered.remove(disc);
+            qtyOrdered--;
+            System.out.println("Remove this DigitalVideoDisc from cart successfully!");
+            return true;
+        } else {
+            System.out.println("This DigitalVideoDisc not added to cart");
+            return false;
+        }
+    }
+
+    /**
+     * This function displays the cart detail.
+     */
+    public void displayCart() {
+        System.out.println("------ Cart Detail ------");
+        for (DigitalVideoDisc disc : itemsOrdered){
+            System.out.printf("%-5d %-20s %-20s %-20s %-10d %-10.2f \n", disc.getId(),
+                    disc.getTitle(), disc.getCategory(), disc.getDirector(),
+                    disc.getLength(), disc.getCost());
+        }
+    }
+
+    /**
+     * TotalCost() returns the total cost of all the items in the order.
+     *
+     * @return The total cost of all the items in the order.
+     */
+    public double totalCost() {
+        double total = 0;
+        for (DigitalVideoDisc disc : itemsOrdered){
+            total += disc.getCost();
+        }
+        return total;
+    }
+
+    /**
+     * "Sort the items in the cart by title, and if the titles are the same, sort by cost."
+     *
+     * The first thing we do is call the `Collections.sort()` function, which takes two arguments: the list to sort, and a
+     * comparator. The comparator is an object that implements the `Comparator` interface. The `Comparator` interface has a
+     * single method, `compare()`, which takes two objects and returns an integer. The `compare()` method is called for
+     * each pair of objects in the list, and the return value determines how the objects are sorted
+     */
+    public void sortCartByTitle() {
+        Collections.sort(itemsOrdered, new Comparator<DigitalVideoDisc>() {
+            @Override
+            public int compare(DigitalVideoDisc o1, DigitalVideoDisc o2) {
+                String title1 = o1.getTitle();
+                String title2 = o2.getTitle();
+                int sComp = title1.compareTo(title2);
+
+                if (sComp != 0) {
+                    return sComp;
+                }
+
+                Double cost1 = o1.getCost();
+                Double cost2 = o2.getCost();
+                return cost1.compareTo(cost2);
+            }
+        });
+    }
+
+    /**
+     * Sort the itemsOrdered list by cost, and if the cost is the same, sort by title.
+     */
+    public void sortCartByCost() {
+        Collections.sort(itemsOrdered, new Comparator<DigitalVideoDisc>() {
+            @Override
+            public int compare(DigitalVideoDisc o1, DigitalVideoDisc o2) {
+                Double cost1 = o1.getCost();
+                Double cost2 = o2.getCost();
+                int sComp = cost1.compareTo(cost2);
+
+                if (sComp != 0) {
+                    return sComp;
+                }
+                String title1 = o1.getTitle();
+                String title2 = o2.getTitle();
+                return title1.compareTo(title2);
+            }
+        });
+    }
+
+    /**
+     * This function adds a list of DVDs to the cart
+     *
+     * @param dvdList an array of hust.soict.dsai.aims.disc.DigitalVideoDisc objects
+     * @return The method returns a boolean value.
+     */
+    public boolean addDigitalVideoDisc(DigitalVideoDisc[] dvdList){
+        for (int i = 0; i < dvdList.length; i++){
+            if (qtyOrdered <= MAX_NUMBERS_ORDERED){
+                itemsOrdered.add(dvdList[i]);
+                qtyOrdered++;
+            } else {
+                System.out.println("The cart is almost full");
+                return false;
+            }
+        }
+        System.out.println("Add DVD into cart successfully!");
+        return true;
+    }
+
+    /**
+     * If the quantity of items ordered is less than or equal to the maximum number of items ordered, add the first DVD to
+     * the items ordered and increment the quantity of items ordered. If the quantity of items ordered is less than or
+     * equal to the maximum number of items ordered, add the second DVD to the items ordered and increment the quantity of
+     * items ordered. Otherwise, print a message that the cart is almost full
+     *
+     * @param dvd1 The first DVD to be added to the cart.
+     * @param dvd2 The second DVD to be added to the cart.
+     * @return The method returns a boolean value.
+     */
+    public boolean addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2){
+        if(qtyOrdered <= MAX_NUMBERS_ORDERED){
+            itemsOrdered.add(dvd1);
+            qtyOrdered++;
+            if(qtyOrdered <= MAX_NUMBERS_ORDERED){
+                itemsOrdered.add(dvd2);
+                qtyOrdered++;
+                System.out.println("Add DVD into cart successfully!");
                 return true;
             } else {
                 System.out.println("The cart is almost full");
@@ -68,87 +178,57 @@ public class Cart {
         }
     }
 
-    public int numberDVDsInCart(){
-        int count = 0;
-        for (Media m : itemsOrdered){
-            if (m instanceof DigitalVideoDisc){
-                count++;
-            }
-        }
-        return count;
-    }
     /**
-     * TotalCost() returns the total cost of all the items in the order.
+     * It prints out the ordered items in the cart
+     */
+    public void print(){
+        System.out.println("***********************CART***********************");
+        System.out.println("Ordered Items:");
+        Iterator<DigitalVideoDisc> it;
+        int i = 0;
+        for (it = itemsOrdered.iterator(); it.hasNext(); i++) {
+            DigitalVideoDisc disc = it.next();
+            System.out.printf("%d. %s \n", i + 1, disc.toString());
+        }
+    }
+
+    /**
+     * It searches for a DVD in the cart by its id.
      *
-     * @return The total cost of all the items in the order.
+     * @param id the id of the DVD you want to search for
+     * @return The method returns a boolean value.
      */
-    public double totalCost() {
-        double total = 0;
-        for (Media m : itemsOrdered) {
-            total += m.getCost();
+    public boolean searchInCart(int id){
+        for (DigitalVideoDisc disc: itemsOrdered){
+            if(disc.getId() == id){
+                System.out.println(disc.toString());
+                return true;
+            }
         }
-        return total;
+        System.out.println("Not found!");
+        return false;
     }
 
-    /**
-     * Sort the items in the cart by title and cost.
-     */
-    public void sortCartByTitle() {
-        Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
-    }
-
-    /**
-     * Sort the items in the cart by cost, then by title.
-     */
-    public void sortCartByCost() {
-        Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
-    }
-
-
-
-    /**
-     * The function iterates through the itemsOrdered ArrayList and prints out the toString() of each Media object
-     */
-    public void displayCart(){
-        Iterator<Media> it;
-        for (it = itemsOrdered.iterator(); it.hasNext();) {
-            Media m = it.next();
-            System.out.printf("%s \n",m.toString());
-        }
-    }
-
-
-    /**
-     * This function takes an id as a parameter and searches the itemsOrdered array for a media object with the same id. If
-     * it finds one, it prints the object and returns true. If it doesn't find one, it prints "Not found!" and returns
-     * false
+   /**
+     * Search for a DVD in the cart, and if found, print it out and return true, otherwise print "Not found" and return
+     * false.
      *
-     * @param id the id of the media item you want to search for
-     * @return A boolean value.
+     * @param title the title of the DVD to be searched
+     * @return The method is returning a boolean value.
      */
-    public Media searchInCart(int id){
-        for (Media m: itemsOrdered){
-            if(m.getId() == id){
-                return m;
+     public boolean searchInCart(String title) {
+        boolean found = false;
+        for (DigitalVideoDisc disc: itemsOrdered){
+            if(disc.isMatch(title)){
+                System.out.println(disc.toString());
+                found = true;
             }
         }
-        return null;
-    }
-
-
-     /**
-      * > Search the itemsOrdered array for a Media object whose title matches the title parameter. If a match is found,
-      * return the Media object. If no match is found, return null
-      *
-      * @param title The title of the media item to be searched for.
-      * @return The method is returning the media object that matches the title.
-      */
-     public Media searchInCart(String title) {
-        for (Media m: itemsOrdered){
-            if(m.isMatch(title)){
-               return m;
-            }
+        if(found){
+            return true;
+        } else {
+            System.out.println("Not found!");
+            return false;
         }
-        return null;
     }
 }
