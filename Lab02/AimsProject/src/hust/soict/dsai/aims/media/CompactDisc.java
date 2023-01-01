@@ -12,9 +12,21 @@ public class CompactDisc extends Media implements Playable{
         this.tracks = tracks;
     }
 
+    /**
+     * If the track is already in the playlist, return false. Otherwise, add the track to the playlist and return true
+     *
+     * @param newTrack The track to be added to the playlist.
+     * @return A boolean value.
+     */
     public boolean addTrack(Track newTrack) {
         if(tracks.contains(newTrack)){
             return false;
+    /**
+     * If the track is in the list, remove it and return true. Otherwise, return false
+     *
+     * @param track The track to be removed from the playlist.
+     * @return A boolean value.
+     */
         } else {
             tracks.add(newTrack);
             return true;
@@ -30,6 +42,11 @@ public class CompactDisc extends Media implements Playable{
         }
     }
 
+    /**
+     * For each track in the tracks list, add the length of the track to the result.
+     *
+     * @return The length of the album in seconds.
+     */
     public int getLength(){
         int result = 0;
         for (Track track : tracks){

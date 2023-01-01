@@ -23,7 +23,8 @@ public class DigitalVideoDisc extends Disc implements Playable{
 
 
     /**
-     * The function printDetail() prints out the title, category, director, length, and cost of a hust.soict.dsai.aims.media.DigitalVideoDisc object
+     * The function printDetail() prints out the title, category, director, length,
+     * and cost of a hust.soict.dsai.aims.media.DigitalVideoDisc object
      */
     public void printDetail(){
         System.out.println("------ DigitalVideoDisc Detail ------");

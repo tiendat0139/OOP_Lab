@@ -8,6 +8,15 @@ public class Store {
     private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
     /**
+     * This function returns an ArrayList of Media objects that are currently in the store
+     *
+     * @return An ArrayList of Media objects
+     */
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
+    }
+
+    /**
      * This function adds a media item to the store
      *
      * @param m The media object to be added to the store.
@@ -48,5 +57,4 @@ public class Store {
         }
         return null;
     }
-
 }
