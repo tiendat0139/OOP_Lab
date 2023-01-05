@@ -4,8 +4,10 @@ import hust.soict.dsai.aims.media.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.naming.LimitExceededException;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 public class Cart {
@@ -23,12 +25,13 @@ public class Cart {
      * @param m The media item to be added to the order.
      * @return A boolean value.
      */
-    public boolean addMedia(Media m) {
-        if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-            return false;
-        } else {
+    public boolean addMedia(Media m) throws LimitExceededException {
+        if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
             itemsOrdered.add(m);
             return true;
+        } else {
+            throw new LimitExceededException("ERROR: The number of" +
+                    "media has reached its limits");
         }
     }
 
@@ -38,14 +41,13 @@ public class Cart {
      * @param m the media to be removed from the cart
      * @return A boolean value
      */
-    public boolean removeMedia(Media m) {
+    public boolean removeMedia(Media m) throws NoSuchElementException {
         if (itemsOrdered.contains(m)) {
             itemsOrdered.remove(m);
             System.out.println("Add Media successfully");
             return true;
         } else {
-            System.out.println("This media has not been added to the cart");
-            return false;
+            throw new NoSuchElementException("ERROR: This media has not been added to the cart");
         }
     }
 
@@ -57,7 +59,7 @@ public class Cart {
      * @param m2 the second media item to be added to the cart
      * @return boolean
      */
-    public boolean addMedia(Media m1, Media m2) {
+    public boolean addMedia(Media m1, Media m2) throws LimitExceededException {
         if (itemsOrdered.size() <= MAX_NUMBERS_ORDERED) {
             itemsOrdered.add(m1);
             if (itemsOrdered.size() <= MAX_NUMBERS_ORDERED) {
@@ -65,11 +67,12 @@ public class Cart {
                 System.out.println("Add Media into cart successfully!");
                 return true;
             } else {
-                System.out.println("The cart is almost full");
-                return false;
+                throw new LimitExceededException("ERROR: The number of" +
+                        "media has reached its limits");
             }
         } else {
-            return false;
+            throw new LimitExceededException("ERROR: The number of" +
+                    "media has reached its limits");
         }
     }
 

@@ -26,6 +26,11 @@ public class AddBookController extends AddItemController {
             Book newBook = new Book(Integer.parseInt(id), title,
                     category, Float.parseFloat(cost), authorList);
             store.addMedia(newBook);
+            inputId.setText("");
+            inputTitle.setText("");
+            inputCategory.setText("");
+            inputCost.setText("");
+            inputAuthors.setText("");
         } catch (Exception e){
             e.printStackTrace();
         }

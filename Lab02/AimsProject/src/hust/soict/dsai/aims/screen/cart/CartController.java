@@ -1,20 +1,27 @@
 package hust.soict.dsai.aims.screen.cart;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.screen.action.PlayController;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
+import javax.naming.LimitExceededException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -53,12 +60,6 @@ public class CartController implements Initializable {
     private Label totalCost;
 
     @FXML
-    private HBox playingModal;
-
-    @FXML
-    private Label playingLabel;
-
-    @FXML
     public void btnRemovePressed(MouseEvent event) {
         Media media= tblMedia.getSelectionModel().getSelectedItem();
         cart.removeMedia(media);
@@ -66,15 +67,34 @@ public class CartController implements Initializable {
     }
 
     @FXML
-    void btnPlayingPressed(MouseEvent event) {
-        playingModal.setVisible(true);
-        Media media = tblMedia.getSelectionModel().getSelectedItem();
-        playingLabel.setText(media.getTitle());
-    }
+    void btnPlayingPressed(MouseEvent event) throws IOException {
+        Media m = tblMedia.getSelectionModel().getSelectedItem();
+        try {
+            if(m instanceof DigitalVideoDisc){
+                try {
+                    ((DigitalVideoDisc) m).play();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../action/play-dvd.fxml"));
+                    Scene playScene = new Scene(fxmlLoader.load(), 400, 384);
 
-    @FXML
-    void btnPlayingExited(MouseEvent event) {
-        playingModal.setVisible(false);
+                    PlayController playController = fxmlLoader.getController();
+                    playController.setPlayingDVDTitle(m.getTitle());
+
+                    Stage stage = new Stage();
+                    stage.setScene(playScene);
+                    stage.show();
+                } catch (PlayerException e){
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("LLLegal DVD length");
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.showAndWait();
+                }
+            }
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -139,7 +159,7 @@ public class CartController implements Initializable {
         filteredList = filteredList1;
     }
 
-    public void addToCart(Media m){
+    public void addToCart(Media m) throws LimitExceededException {
         cart.addMedia(m);
     }
 }

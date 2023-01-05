@@ -1,9 +1,11 @@
 package hust.soict.dsai.aims;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 
+import javax.naming.LimitExceededException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,7 +57,7 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3-4-5");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LimitExceededException {
         Scanner sc = new Scanner(System.in);
         Scanner scString = new Scanner(System.in);
         DigitalVideoDisc dvd1 = new DigitalVideoDisc(1, "The Lion King", "Animation",
@@ -116,7 +118,11 @@ public class Aims {
                                                     break;
                                                 case 2:
                                                     if (mediaStore instanceof DigitalVideoDisc) {
-                                                        ((DigitalVideoDisc) mediaStore).play();
+                                                        try {
+                                                            ((DigitalVideoDisc) mediaStore).play();
+                                                        } catch (PlayerException e){
+                                                            e.printStackTrace();
+                                                        }
                                                     } else {
                                                         System.out.println("This media can not play !");
                                                     }
@@ -155,7 +161,11 @@ public class Aims {
                                     mediaStore = store.searchInStore(title); //search media
                                     if (mediaStore != null) {
                                         if (mediaStore instanceof DigitalVideoDisc) {
-                                            ((DigitalVideoDisc) mediaStore).play();
+                                            try {
+                                                ((DigitalVideoDisc) mediaStore).play();
+                                            } catch (PlayerException e){
+                                                e.printStackTrace();
+                                            }
                                         } else {
                                             System.out.println("This is not an DVD");
                                         }
@@ -235,7 +245,11 @@ public class Aims {
                                     title = scString.nextLine();
                                     mediaCart = cart.searchInCart(title);
                                     if(mediaCart != null){
-                                        ((DigitalVideoDisc) mediaCart).play();
+                                        try {
+                                            ((DigitalVideoDisc) mediaCart).play();
+                                        } catch (PlayerException e){
+                                            e.printStackTrace();
+                                        }
                                     } else {
                                         System.out.println("Media does not exist in cart !");
                                     }

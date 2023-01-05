@@ -1,5 +1,6 @@
 package hust.soict.dsai.aims.screen.additem;
 
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.screen.store.StoreController;
 import hust.soict.dsai.aims.store.Store;
 import javafx.event.ActionEvent;
@@ -20,7 +21,8 @@ public abstract class AddItemController {
 
     protected Store store;
 
-    protected Scene storeScene;
+    protected Cart cart;
+
 
     @FXML
     private BorderPane root;
@@ -46,13 +48,21 @@ public abstract class AddItemController {
     public void setStore(Store store) {
         this.store = store;
     }
-    public void setStoreScene(Scene storeScene){
-        this.storeScene = storeScene;
+
+    public void setCart(Cart cart){
+        this.cart = cart;
     }
     @FXML
     void itemViewStoreClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../store/store.fxml"));
+
+        Scene storeScene = new Scene(fxmlLoader.load(),1024, 768);
+        StoreController storeController = fxmlLoader.getController();
+        storeController.setStore(this.store);
+        storeController.setCart(this.cart);
         stage.setScene(storeScene);
+
     }
 
     @FXML

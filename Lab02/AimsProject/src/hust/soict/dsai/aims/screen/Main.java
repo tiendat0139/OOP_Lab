@@ -45,14 +45,13 @@ public class Main extends Application {
         FXMLLoader fxmlCartLoader = new FXMLLoader(Main.class
                 .getResource("./cart/cart.fxml"));
 
-        Scene storeScene = new Scene(fxmlStoreLoader.load(), 1028, 768);
-        Scene cartScene = new Scene(fxmlCartLoader.load(), 1028, 768);
+        Scene storeScene = new Scene(fxmlStoreLoader.load(), 1024, 768);
 
         StoreController storeController = fxmlStoreLoader.getController();
         storeController.setStore(store);
-        storeController.setCartScene(cartScene);
         storeController.setCart(cart);
 
+        fxmlCartLoader.load();
         CartController cartController = fxmlCartLoader.getController();
         cartController.setCart(cart);
 

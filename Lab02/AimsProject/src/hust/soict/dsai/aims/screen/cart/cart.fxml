@@ -93,7 +93,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox fx:id="playingModal" alignment="CENTER" onMouseMoved="#btnPlayingExited" translateY="-250.0" visible="false">
+            <HBox fx:id="playingModal" alignment="CENTER" translateY="-250.0" visible="false">
                <children>
                   <VBox alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" style="-fx-background-color: #627a9f;">
                      <children>
